@@ -1,0 +1,32 @@
+#sidebar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin-left: 0px;
+    background-color: gray;
+    width: 200px;
+    height: 100vh;
+    z-index: -1;
+}
+
+#sidebar h3 {
+    color: white;
+}
+
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.option {
+    text-align: center;
+    width: 200px;
+    margin: auto;
+}
+
+.option:hover {
+    color: whitesmoke;
+    border-radius: 10px;
+    background-color: lightblue;
+}
