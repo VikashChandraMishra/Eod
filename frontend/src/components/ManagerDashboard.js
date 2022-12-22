@@ -13,7 +13,7 @@ const ManagerDashboard = () => {
             navigate('/');
 
         const fetchData = async () => {
-            const response = await fetch('http://127.0.0.1:5000/api/admin/fetch-eods', {
+            const response = await fetch('http://43.205.206.201:5000/api/admin/fetch-eods', {
                 method: 'GET',
 
                 headers: {
@@ -36,7 +36,7 @@ const ManagerDashboard = () => {
 
     const approve = async (id) => {
         
-        const response = await fetch(`http://127.0.0.1:5000/api/manager/approve-eod/${id}`, {
+        const response = await fetch(`http://43.205.206.201:5000/api/manager/approve-eod/${id}`, {
                 method: 'GET',
 
                 headers: {
@@ -55,7 +55,7 @@ const ManagerDashboard = () => {
     }
 
     const reject = async (id) => {
-        const response = await fetch(`http://127.0.0.1:5000/api/manager/reject-eod/${id}`, {
+        const response = await fetch(`http://43.205.206.201:5000/api/manager/reject-eod/${id}`, {
             method: 'GET',
 
             headers: {
