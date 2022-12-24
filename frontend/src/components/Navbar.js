@@ -44,12 +44,6 @@ const Navbar = () => {
                                 </li>
                             }
                             {
-                                localStorage.getItem('authToken') === 'admin' &&
-                                <li className="nav-item">
-                                    <Link className={`nav-link ${location.pathname === '/admin/eods-list' ? 'active' : ''}`} to="/admin/eods-list">EODs</Link>
-                                </li>
-                            }
-                            {
                                 location.pathname !== '/' && location.pathname !== '/reset-password' && location.pathname !== '/register' && <li className="nav-item">
                                     <Link className="nav-link" to="/" onClick={logout}>Logout</Link>
                                 </li>

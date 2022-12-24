@@ -20,7 +20,7 @@ const SubmitEOD = () => {
         if (!(confirmation.toUpperCase() === "YES")) return;
 
         const { date, task } = eod;
-        const response = await fetch('http://43.205.206.201:5000/api/employee/submit-eod', {
+        const response = await fetch('http://65.2.38.47:5000/api/employee/submit-eod', {
             method: 'POST',
 
             headers: {
@@ -34,7 +34,7 @@ const SubmitEOD = () => {
         const json = await response.json();
 
         if (json.success) {
-            navigate('/');
+            navigate('/employee/account');
         } else
             alert("Invalid Entry!");
 
@@ -52,22 +52,22 @@ const SubmitEOD = () => {
                 <p className="card-header text-center">Submit EOD</p>
                 <div className="card-body text-center">
                     <form className="form py-1 px-1" id="login-form" onSubmit={handleSubmit}>
-                        <div className="row py-2 d-flex justify-content-between">
+                        <div className="row py-2 d-flex justify-content-between" id='eod-submit-form-row'>
                             <div className='col-2 form-group'>
                                 <label htmlFor="date" className="form-label">
                                     <strong>Date</strong>
                                 </label>
-                                <input type="date" className="form-control" id='date' name='date' value={eod.date} onChange={onChange} required />
+                                <input type="date" className="form-control" id='eod-date-input' name='date' value={eod.date} onChange={onChange} required />
                             </div>
 
                             <div className='col-7 form-group'>
                                 <label htmlFor="task" className="form-label">
                                     <strong>Task</strong>
                                 </label>
-                                <input type="text" className="form-control" id='task' name='task' value={eod.task} onChange={onChange} required />
+                                <input type="text" className="form-control" id='eod-task-input' name='task' value={eod.task} onChange={onChange} required />
                             </div>
                             <div className='col-2 form-group'>
-                                <button type="submit" className="btn btn-success" style={{marginTop: "30px", width: "150px"}} >Submit</button>
+                                <button type="submit" className="btn btn-success" id="eod-submit-btn" style={{marginTop: '30px', width: '150px'}} >Submit</button>
                             </div>
                         </div>
 

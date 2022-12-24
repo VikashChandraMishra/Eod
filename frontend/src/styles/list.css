@@ -26,3 +26,22 @@
     color: white;
     font-size: 0.9rem;
 }
+
+@media screen and (max-width: 300px) {
+    
+    #list td,
+    #list th {
+        border: 1px solid #ddd;
+        font-size: 0.7rem;
+        /* padding: 8px; */
+    }
+        
+    #list th {
+        /* padding-top: 12px; */
+        /* padding-bottom: 12px; */
+        text-align: center;
+        background-color: gray;
+        color: white;
+    }
+
+}

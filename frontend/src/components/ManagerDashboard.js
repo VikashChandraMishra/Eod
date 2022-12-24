@@ -13,18 +13,18 @@ const ManagerDashboard = () => {
             navigate('/');
 
         const fetchData = async () => {
-            const response = await fetch('http://43.205.206.201:5000/api/admin/fetch-eods', {
+            const response = await fetch('http://65.2.38.47:5000/api/manager/fetch-eods', {
                 method: 'GET',
 
                 headers: {
                     'Content-Type': 'application/json',
+                    'authToken': localStorage.getItem('authToken')
                 },
             })
 
             const json = await response.json();
             if (json.success) {
                 setEODs(json.eods);
-
             }
             else alert("Cannot fetch eods' list at the moment!");
         }
@@ -36,7 +36,7 @@ const ManagerDashboard = () => {
 
     const approve = async (id) => {
         
-        const response = await fetch(`http://43.205.206.201:5000/api/manager/approve-eod/${id}`, {
+        const response = await fetch(`http://65.2.38.47:5000/api/manager/approve-eod/${id}`, {
                 method: 'GET',
 
                 headers: {
@@ -55,7 +55,7 @@ const ManagerDashboard = () => {
     }
 
     const reject = async (id) => {
-        const response = await fetch(`http://43.205.206.201:5000/api/manager/reject-eod/${id}`, {
+        const response = await fetch(`http://65.2.38.47:5000/api/manager/reject-eod/${id}`, {
             method: 'GET',
 
             headers: {
@@ -79,10 +79,6 @@ const ManagerDashboard = () => {
 
     const columns = useMemo(
         () => [
-            {
-                Header: "Employee Username",
-                accessor: "user",
-            },
             {
                 Header: "Date",
                 accessor: "date",

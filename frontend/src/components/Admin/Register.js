@@ -1,9 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-
-    const navigate = useNavigate(null);
 
     const [user, setUser] = useState({
         "username": "",
@@ -12,9 +9,9 @@ const Register = () => {
         "mobile": 0,
         "email": "",
         "gender": "",
-        "dob": "",
+        "empID": 0,
         "designation": "",
-        "reportingManager": ""
+        "reportingManager": 0
     });
 
 
@@ -30,7 +27,7 @@ const Register = () => {
             return;
         }
 
-        const response = await fetch('http://43.205.206.201:5000/api/admin/registration', {
+        const response = await fetch('http://65.2.38.47:5000/api/admin/registration', {
             method: 'POST',
 
             headers: {
@@ -44,26 +41,7 @@ const Register = () => {
 
         if (json.success) {
 
-            const confirmation = window.prompt("User registered. Do you wish to continue?Yes/No");
-            if (confirmation.toUpperCase() === "YES") {
-
-                setUser({
-                    "username": "",
-                    "password": "",
-                    "name": "",
-                    "mobile": 0,
-                    "email": "",
-                    "gender": "",
-                    "dob": "",
-                    "designation": "",
-                    "reportingManager": ""
-                });
-
-                return;
-
-            }
-
-            navigate('/admin/dashboard');
+            alert("User successfully registered.");
 
         }
         else alert(json.message);
@@ -75,9 +53,9 @@ const Register = () => {
             "mobile": 0,
             "email": "",
             "gender": "",
-            "dob": "",
+            "empID": 0,
             "designation": "",
-            "reportingManager": ""
+            "reportingManager": 0
         });
     }
 
@@ -130,8 +108,8 @@ const Register = () => {
                             </div>
                             <div className="row py-2">
                                 <div className="col form-group">
-                                    <label htmlFor="dob">DOB</label>
-                                    <input className="form-control" type="date" id="dob" name="dob" value={user.dob} onChange={onChange} required />
+                                    <label htmlFor="empID">Employee ID</label>
+                                    <input className="form-control" type="number" id="empID" name="empID" value={user.empID} onChange={onChange} required />
                                 </div>
                                 <div className="col form-group">
                                     <label htmlFor="designation">Designation</label>
@@ -142,7 +120,7 @@ const Register = () => {
                                     </select>
                                 </div>
                                 <div className="col form-group">
-                                    <label htmlFor="reportingManager">Reporting Manager Username</label>
+                                    <label htmlFor="reportingManager">Reporting Manager ID (if employee is selected)</label>
                                     <input className="form-control" type="text" id="reportingManager" name="reportingManager" value={user.reportingManager} onChange={onChange} />
                                 </div>
                             </div>

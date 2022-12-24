@@ -12,7 +12,7 @@ const Home = () => {
 
         const { username, password } = user;
 
-        const response = await fetch('http://43.205.206.201:5000/api/auth/login', {
+        const response = await fetch('http://65.2.38.47:5000/api/auth/login', {
             method: 'POST',
 
             headers: {
@@ -36,7 +36,7 @@ const Home = () => {
         } else if (json.success && json.message === 'admin verified') {
 
             localStorage.setItem('authToken', 'admin')
-            navigate('/admin/register');
+            navigate('/admin/employees-list');
 
         } else alert("Invalid credentials!");
 

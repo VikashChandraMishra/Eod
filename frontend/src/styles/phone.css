@@ -1,0 +1,77 @@
+@media screen and (max-width: 300px) {
+
+    /* NAVBAR */
+
+    #ham-burger-button {
+        width: 30px;
+        height: 30px;
+        padding: 0px 0px;
+    }
+
+    .nav-item {
+        font-size: 0.7rem;
+    }
+
+    /* REGISTER, LOGIN, RESET_PASSWORD */
+
+    .btn {
+        font-size: 0.7rem;
+    }
+
+    input {
+        height: 25px;
+    }
+
+    .card {
+        min-width: 230px;
+        font-size: 0.7rem;
+    }
+
+    #register-card .form-group {
+        padding-left: 9px;
+        padding-right: 0px;
+    }
+
+    #register-card .form-control {
+        font-size: 0.6rem;
+        width: 65px;
+    }
+
+    #reset-password-card .form-control {
+        font-size: 0.7rem;
+    }
+
+    #login-reset-pass-btn {
+        width: 100px;
+    }
+
+    /* EOD SUBMIT */
+
+    #eod-submit-form-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #eod-submit-form-row .form-group {
+        width: 200px;
+    }
+
+    #eod-date-input, #eod-task-input {
+        width: 150px;
+        font-size: 0.7rem;
+        margin: 0px 15px;
+    } 
+
+    /* SEARCH */
+
+    #search {
+        font-size: 0.7rem;
+    }
+
+    #search input {
+        width: 100px;
+        height: 20px;
+        margin-bottom: 5px;
+    }
+
+}

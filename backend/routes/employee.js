@@ -19,14 +19,16 @@ router.post('/submit-eod', fetchUser, async (req, res) => {
         const existingUser = await User.findById(id);
 
         if (!existingUser) {
+
             return res.json({
                 "success": false,
                 "message": "user does not exist"
             });
 
         } else if (existingUser.designation == "employee") {
+
             await Report.create({
-                user: existingUser.username,
+                empID: existingUser.empID,
                 date: date,
                 task: task
             });
@@ -53,7 +55,7 @@ router.get('/get-user-eods', fetchUser, async (req, res) => {
     try {
 
         const user = await User.findById(req.id);
-        const eods = await Report.find({"user": user.username});
+        const eods = await Report.find({"empID": user.empID});
         
         return res.json({
             "success": true,

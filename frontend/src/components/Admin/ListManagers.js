@@ -15,7 +15,7 @@ const ListManagers = () => {
             navigate('/');
 
         const fetchData = async () => {
-            const response = await fetch('http://43.205.206.201:5000/api/admin/fetch-reporting-managers', {
+            const response = await fetch('http://65.2.38.47:5000/api/admin/fetch-reporting-managers', {
                 method: 'GET',
 
                 headers: {
@@ -44,20 +44,8 @@ const ListManagers = () => {
     const columns = useMemo(
         () => [
             {
-                Header: "ID",
-                accessor: "_id",
-            },
-            {
-                Header: "Username",
-                accessor: "username",
-            },
-            {
                 Header: "Name",
                 accessor: "name",
-            },
-            {
-                Header: "DOB",
-                accessor: "dob",
             },
             {
                 Header: "Email",

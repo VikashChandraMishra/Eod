@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-    name: {
-        type: String,
+    empID: {
+        type: Number,
         required: true
     },
 
-    dob: {
+    name: {
         type: String,
-        required: true,
+        required: true
     },
 
     gender: {

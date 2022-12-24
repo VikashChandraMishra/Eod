@@ -17,7 +17,7 @@ const Account = () => {
             navigate('/');
 
         const fetchData = async () => {
-            const response = await fetch('http://43.205.206.201:5000/api/employee/get-user-eods', {
+            const response = await fetch('http://65.2.38.47:5000/api/employee/get-user-eods', {
                 method: 'GET',
 
                 headers: {
@@ -31,7 +31,6 @@ const Account = () => {
 
                 setEODs(json.eods);
 
-                
             }
             else alert("Cannot fetch eods' list at the moment!");
         }

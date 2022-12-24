@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import List from "./List";
 
 const ListEODs = () => {
     const [EODs, setEODs] = useState([]);
 
     const navigate = useNavigate(null);
+    const location = useLocation();
 
     useEffect(() => {
 
@@ -13,11 +14,12 @@ const ListEODs = () => {
             navigate('/');
 
         const fetchData = async () => {
-            const response = await fetch('http://43.205.206.201:5000/api/admin/fetch-eods', {
+            const response = await fetch('http://65.2.38.47:5000/api/admin/fetch-eods', {
                 method: 'GET',
 
                 headers: {
                     'Content-Type': 'application/json',
+                    'empID': location.state.empID
                 },
             })
 
@@ -42,8 +44,8 @@ const ListEODs = () => {
     const columns = useMemo(
         () => [
             {
-                Header: "Employee Username",
-                accessor: "user",
+                Header: "ID",
+                accessor: "empID",
             },
             {
                 Header: "Date",

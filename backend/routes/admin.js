@@ -11,7 +11,7 @@ router.post('/registration', async (req, res) => {
             username,
             password,
             name,
-            dob,
+            empID,
             gender,
             mobile,
             email,
@@ -20,7 +20,7 @@ router.post('/registration', async (req, res) => {
         } = req.body;
 
         const existingUser = await User.findOne({
-            $or: [{ username: username }, { mobile: mobile }, { email: email }]
+            $or: [{ username: username }, { empID: empID }, { mobile: mobile }, { email: email }]
         });
 
 
@@ -33,22 +33,26 @@ router.post('/registration', async (req, res) => {
 
         } else {
 
-            if (designation == "reporting manager" && reportingManager != "")
+            if (designation == "reporting manager" && reportingManager != 0)
                 return res.json({
                     "success": false,
                     "message": "Reporting Manager cannot have a reporting manager"
                 });
 
-            else {
-
-                reportingManager = await User.findOne({ "username": reportingManager });
+            else if (designation == "reporting manager" && reportingManager == 0) {
+                
+                reportingManager = null;
+            
+            } else {
+                
+                reportingManager = await User.findOne({ "empID": reportingManager });
 
                 if (reportingManager) {
 
                     if (reportingManager.designation == "employee")
                         return res.json({
                             "success": false,
-                            "message": "Reporting Manager cannot be an employee"
+                            "message": "An employee cannot be a Reporting Manager"
                         });
                     else {
 
@@ -68,7 +72,7 @@ router.post('/registration', async (req, res) => {
                 username: username,
                 password: password,
                 name: name,
-                dob: dob,
+                empID: empID,
                 gender: gender,
                 mobile: mobile,
                 email: email,
@@ -117,7 +121,7 @@ router.get('/fetch-employees', async (req, res) => {
 router.get('/fetch-eods', async (req, res) => {
     try {
 
-        const eods = await Report.find();
+        const eods = await Report.find({"empID": req.header('empID')});
 
         return res.json({
             "success": true,
