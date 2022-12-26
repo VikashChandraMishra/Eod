@@ -12,7 +12,7 @@ const Home = () => {
 
         const { username, password } = user;
 
-        const response = await fetch('http://65.2.38.47:5000/api/auth/login', {
+        const response = await fetch('http://13.126.226.857:5000/api/auth/login', {
             method: 'POST',
 
             headers: {

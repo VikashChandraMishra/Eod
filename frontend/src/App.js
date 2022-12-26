@@ -13,12 +13,19 @@ import ManagerDashboard from "./components/ManagerDashboard";
 import Account from "./components/Account";
 import Employees from "./components/Admin/Employees";
 import './styles/phone.css'
+import './styles/list.css'
+import "@progress/kendo-theme-material/dist/all.css";
+import "hammerjs";
+import logo from "./images/logo.png"
 
 function App() {
   return (
     <div>
       <Router>
         <Navbar />
+        <div className="text-center my-3" >
+          <img src={logo} alt="cannot display logo" width="190px" height="100px" />
+        </div>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/employee/account" element={<Account />} />

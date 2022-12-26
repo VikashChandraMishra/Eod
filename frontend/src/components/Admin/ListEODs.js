@@ -14,7 +14,7 @@ const ListEODs = () => {
             navigate('/');
 
         const fetchData = async () => {
-            const response = await fetch('http://65.2.38.47:5000/api/admin/fetch-eods', {
+            const response = await fetch('http://13.126.226.857:5000/api/admin/fetch-eods', {
                 method: 'GET',
 
                 headers: {

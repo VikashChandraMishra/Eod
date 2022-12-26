@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Employee from "./Employee";
+import Graph from "./Graph";
 
 const Employees = () => {
 
@@ -14,7 +15,7 @@ const Employees = () => {
             navigate('/');
 
         const fetchData = async () => {
-            const response = await fetch('http://65.2.38.47:5000/api/admin/fetch-employees', {
+            const response = await fetch('http://13.126.226.857:5000/api/admin/fetch-employees', {
                 method: 'GET',
 
                 headers: {
@@ -38,6 +39,7 @@ const Employees = () => {
 
     return (
         <div className="container my-4">
+            <Graph />
             <h3 className="text-center">EMPLOYEES</h3>
             <div className="row py-2">
                 {

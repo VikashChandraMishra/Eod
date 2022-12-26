@@ -20,7 +20,7 @@ const SubmitEOD = () => {
         if (!(confirmation.toUpperCase() === "YES")) return;
 
         const { date, task } = eod;
-        const response = await fetch('http://65.2.38.47:5000/api/employee/submit-eod', {
+        const response = await fetch('http://13.126.226.857:5000/api/employee/submit-eod', {
             method: 'POST',
 
             headers: {
