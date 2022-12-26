@@ -24,7 +24,7 @@ function App() {
       <Router>
         <Navbar />
         <div className="text-center my-3" >
-          <img src={logo} alt="cannot display logo" width="190px" height="100px" />
+          <img src={logo} alt="cannot display logo" width="250px" height="120px" />
         </div>
         <Routes>
           <Route exact path="/" element={<Home />} />
