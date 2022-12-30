@@ -6,11 +6,16 @@ const Navbar = () => {
     const location = useLocation();
 
     const logout = () => {
+
         localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+
     }
 
     useEffect(() => {
     }, [location])
+
+
 
     return (
         <div>
@@ -26,21 +31,33 @@ const Navbar = () => {
                                 <Link className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} aria-current="page" to="/">Home</Link>
                             </li>
                             {
-                                localStorage.getItem('authToken') === 'admin' &&
+                                localStorage.getItem('user') === 'admin' &&
                                 <li className="nav-item">
                                     <Link className={`nav-link ${location.pathname === '/admin/register' ? 'active' : ''}`} to="/admin/register">Register</Link>
                                 </li>
                             }
                             {
-                                localStorage.getItem('authToken') === 'admin' &&
+                                localStorage.getItem('user') === 'admin' &&
                                 <li className="nav-item">
-                                    <Link className={`nav-link ${location.pathname === '/admin/employees-list' ? 'active' : ''}`} to="/admin/employees-list">Employees</Link>
+                                    <Link className={`nav-link ${location.pathname === '/admin/dashboard' ? 'active' : ''}`} to="/admin/dashboard">Dashboard</Link>
                                 </li>
                             }
                             {
-                                localStorage.getItem('authToken') === 'admin' &&
+                                (localStorage.getItem('user') === 'manager' || localStorage.getItem('user') === 'employee') &&
                                 <li className="nav-item">
-                                    <Link className={`nav-link ${location.pathname === '/admin/managers-list' ? 'active' : ''}`} to="/admin/managers-list">Managers</Link>
+                                    <Link className={`nav-link ${location.pathname === '/user/account' ? 'active' : ''}`} to="/user/account">Account</Link>
+                                </li>
+                            }
+                            {
+                                localStorage.getItem('user') === 'manager' &&
+                                <li className="nav-item">
+                                    <Link className={`nav-link ${location.pathname === '/manager/dashboard' ? 'active' : ''}`} to="/manager/dashboard">Dashboard</Link>
+                                </li>
+                            }
+                            {
+                                localStorage.getItem('user') === 'employee' &&
+                                <li className="nav-item">
+                                    <Link className={`nav-link ${location.pathname === '/employee/dashboard' ? 'active' : ''}`} to="/employee/dashboard">Dashboard</Link>
                                 </li>
                             }
                             {

@@ -24,9 +24,14 @@ router.post('/login', async (req, res) => {
 
         if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
 
+            const authToken = jwt.sign(ADMIN_USERNAME, SECRET_KEY);
+
+            message = "admin verified";
+
             return res.json({
-                "success": true,
-                "message": "admin verified"
+                success: true,
+                authToken: authToken,
+                message: message
             });
 
         }
@@ -54,6 +59,7 @@ router.post('/login', async (req, res) => {
                 "authToken": authToken,
                 "message": message
             });
+
         }
 
     } catch (error) {

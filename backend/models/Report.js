@@ -8,8 +8,8 @@ const reportSchema = new Schema({
     },
 
     date: {
-        type: String,
-        required: true
+        type: Date,
+        default: Date.now()
     },
 
     task: {
@@ -20,8 +20,7 @@ const reportSchema = new Schema({
     status: {
         type: String,
         default: "pending"
-    },
-
+    }
     
 });
 

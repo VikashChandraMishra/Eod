@@ -1,51 +1,62 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
+
 const Home = () => {
 
     const navigate = useNavigate(null);
-
     const [user, setUser] = useState({ "username": "", "password": "" })
+
+
+
+    const onChange = (e) => {
+        setUser({ ...user, [e.target.name]: e.target.value });
+    }
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const { username, password } = user;
 
-        const response = await fetch('http://13.126.226.857:5000/api/auth/login', {
+        const response = await fetch('http://3.110.197.187:5000/api/auth/login', {
             method: 'POST',
-
             headers: {
                 'Content-Type': 'application/json',
             },
-
             body: JSON.stringify({ username, password })
         })
 
         const json = await response.json();
 
-        if (json.success && json.authToken) {
+        if (json.success) {
 
             localStorage.setItem('authToken', json.authToken);
 
-            if (json.message === "employee verified")
-                navigate('/employee/account');
-            else if (json.message === "reporting manager verified")
+            if (json.message === "admin verified") {
+
+                localStorage.setItem('user', 'admin');
+                navigate('/admin/dashboard');
+
+            } else if (json.message === "employee verified") {
+
+                localStorage.setItem('user', 'employee');
+                navigate('/user/account');
+
+            } else if (json.message === "reporting manager verified") {
+
+                localStorage.setItem('user', 'manager');
                 navigate('/manager/dashboard');
-
-        } else if (json.success && json.message === 'admin verified') {
-
-            localStorage.setItem('authToken', 'admin')
-            navigate('/admin/employees-list');
+            
+            }
 
         } else alert("Invalid credentials!");
 
         setUser({ "username": "", "password": "" });
     }
 
-    const onChange = (e) => {
-        setUser({ ...user, [e.target.name]: e.target.value });
-    }
 
 
     return (

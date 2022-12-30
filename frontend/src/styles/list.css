@@ -28,7 +28,11 @@
 }
 
 @media screen and (max-width: 300px) {
-    
+ 
+    #list {
+        width: 240px;
+    }
+
     #list td,
     #list th {
         border: 1px solid #ddd;

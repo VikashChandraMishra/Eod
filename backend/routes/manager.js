@@ -122,39 +122,4 @@ router.get('/reject-eod/:id', fetchUser, async (req, res) => {
 
 
 
-router.get('/fetch-eods', fetchUser, async (req, res) => {
-    try {
-
-        const manager = await User.findById(req.id);
-        const employees = await User.find({"reportingManager": manager.name});
-
-        let total = [];
-        let eods = [];
-
-        for (let i = 0; i < employees.length; i++) {
-
-            eods = await Report.find({"empID": employees[i].empID});
-
-            for (let i = 0; i < eods.length; i++) {
-                total.push(eods[i]);
-            }
-
-        }
-
-        return res.json({
-            "success": true,
-            "message": "eods' list successfully fetched",
-            "eods": total,
-        });
-
-    } catch (error) {
-
-        console.log(error)
-        return res.status(500).send("Internal Server Error!");
-
-    }
-})
-
-
-
 module.exports = router;

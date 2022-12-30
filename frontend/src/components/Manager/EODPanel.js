@@ -1,11 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import List from "./Admin/List";
+import { useLocation, useNavigate } from "react-router-dom";
+import List from "../Utilities/List";
 
-const ManagerDashboard = () => {
+
+
+const EODPanel = () => {
+
     const [EODs, setEODs] = useState([]);
-
     const navigate = useNavigate(null);
+    const location = useLocation();
 
     useEffect(() => {
 
@@ -13,20 +16,24 @@ const ManagerDashboard = () => {
             navigate('/');
 
         const fetchData = async () => {
-            const response = await fetch('http://13.126.226.857:5000/api/manager/fetch-eods', {
+            
+            const response = await fetch('http://3.110.197.187:5000/api/common/fetch-eods', {
                 method: 'GET',
 
                 headers: {
                     'Content-Type': 'application/json',
-                    'authToken': localStorage.getItem('authToken')
+                    'empID': location.state.empID
                 },
             })
 
             const json = await response.json();
+            
             if (json.success) {
+
                 setEODs(json.eods);
-            }
-            else alert("Cannot fetch eods' list at the moment!");
+
+            } else alert("Cannot fetch eods' list at the moment!");
+        
         }
 
         fetchData();
@@ -35,27 +42,27 @@ const ManagerDashboard = () => {
 
 
     const approve = async (id) => {
-        
-        const response = await fetch(`http://13.126.226.857:5000/api/manager/approve-eod/${id}`, {
-                method: 'GET',
 
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authToken': localStorage.getItem('authToken')
-                },
-            })
+        const response = await fetch(`http://3.110.197.187:5000/api/manager/approve-eod/${id}`, {
+            method: 'GET',
 
-            const json = await response.json();
-            if (json.success) {
+            headers: {
+                'Content-Type': 'application/json',
+                'authToken': localStorage.getItem('authToken')
+            },
+        })
 
-                alert("Task approved!");
+        const json = await response.json();
+        if (json.success) {
 
-            } else alert(json.message);
+            alert("Task approved!");
+
+        } else alert(json.message);
 
     }
 
     const reject = async (id) => {
-        const response = await fetch(`http://13.126.226.857:5000/api/manager/reject-eod/${id}`, {
+        const response = await fetch(`http://3.110.197.187:5000/api/manager/reject-eod/${id}`, {
             method: 'GET',
 
             headers: {
@@ -96,8 +103,8 @@ const ManagerDashboard = () => {
                 Header: "Action",
                 accessor: (row) => {
                     return <div>
-                        <button className="btn btn-success px-4 mx-4" onClick={() => { approve(row._id) }} >Approve</button>
-                        <button className="btn btn-danger px-4" onClick={() => { reject(row._id) }}>Reject</button>
+                        <button className="btn btn-success px-4 mx-4" id="approve-btn" onClick={() => { approve(row._id) }} >Approve</button>
+                        <button className="btn btn-danger px-4" id="reject-btn" onClick={() => { reject(row._id) }}>Reject</button>
                     </div>
                 },
                 disableGlobalFilter: true
@@ -111,4 +118,4 @@ const ManagerDashboard = () => {
     )
 }
 
-export default ManagerDashboard;
+export default EODPanel;

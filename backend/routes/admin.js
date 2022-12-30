@@ -97,69 +97,6 @@ router.post('/registration', async (req, res) => {
 
 
 
-router.get('/fetch-employees', async (req, res) => {
-    try {
-
-        const employees = await User.find({ "designation": "employee" });
-
-        return res.json({
-            "success": true,
-            "message": "employees' list successfully fetched",
-            "employees": employees,
-        });
-
-    } catch (error) {
-
-        console.log(error)
-        return res.status(500).send("Internal Server Error!");
-
-    }
-})
-
-
-
-router.get('/fetch-eods', async (req, res) => {
-    try {
-
-        const eods = await Report.find({"empID": req.header('empID')});
-
-        return res.json({
-            "success": true,
-            "message": "eods' list successfully fetched",
-            "eods": eods,
-        });
-
-    } catch (error) {
-
-        console.log(error)
-        return res.status(500).send("Internal Server Error!");
-
-    }
-})
-
-
-router.get('/fetch-reporting-manager/:id', async (req, res) => {
-    try {
-
-        const id = await User.findOne({ "_id": req.params.id }).select("reportingManager");
-        const reportingManager = await User.findOne({ "_id": id }).select("username");
-
-        return res.json({
-            "success": true,
-            "message": "reporting manager username successfully fetched",
-            "reportingManager": reportingManager.username
-        });
-
-    } catch (error) {
-
-        console.log(error)
-        return res.status(500).send("Internal Server Error!");
-
-    }
-})
-
-
-
 router.get('/fetch-reporting-managers', async (req, res) => {
     try {
 

@@ -1,14 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import List from "./Admin/List.js";
+import List from "../Utilities/List.js";
 
 const Account = () => {
     const [EODs, setEODs] = useState([]);
-
     const navigate = useNavigate(null);
 
     const addEOD = () => {
-        navigate('/employee/submitEOD');
+        navigate('/user/submitEOD');
     }
 
     useEffect(() => {
@@ -17,7 +16,7 @@ const Account = () => {
             navigate('/');
 
         const fetchData = async () => {
-            const response = await fetch('http://13.126.226.857:5000/api/employee/get-user-eods', {
+            const response = await fetch('http://3.110.197.187:5000/api/common/get-user-eods', {
                 method: 'GET',
 
                 headers: {
@@ -47,8 +46,14 @@ const Account = () => {
     const columns = useMemo(
         () => [
             {
+                id: "date",
                 Header: "Date",
-                accessor: "date",
+                accessor: (row) => {
+
+                    let date = new Date(row.date);
+                    return date.toDateString();
+
+                }
             },
             {
                 Header: "Task",

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import List from "./List";
+import List from "../Utilities/List";
 
 const ListEODs = () => {
     const [EODs, setEODs] = useState([]);
@@ -10,11 +10,11 @@ const ListEODs = () => {
 
     useEffect(() => {
 
-        if (!(localStorage.getItem('authToken') === "admin"))
+        if (!localStorage.getItem('authToken'))
             navigate('/');
 
         const fetchData = async () => {
-            const response = await fetch('http://13.126.226.857:5000/api/admin/fetch-eods', {
+            const response = await fetch('http://3.110.197.187:5000/api/common/fetch-eods', {
                 method: 'GET',
 
                 headers: {
@@ -56,8 +56,15 @@ const ListEODs = () => {
                 accessor: "task",
             },
             {
+                id: "status",
                 Header: "Status",
-                accessor: "status",
+                accessor: (row) => {
+                    if (row.status === "approved") {
+                        return <span style={{fontSize: '25px'}}>✔</span>
+                    } else if (row.status === "rejected") {
+                        return <span>❌</span>
+                    } else return <span>Pending</span>
+                }
             }
         ],
         []

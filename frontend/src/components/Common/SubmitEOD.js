@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
+
 const SubmitEOD = () => {
 
     const navigate = useNavigate(null);
-
-    const [eod, setEod] = useState({ "date": "", "task": "" })
+    const [task, setTask] = useState("");
 
     useEffect(() => {
         if (!localStorage.getItem('authToken'))
@@ -15,34 +16,42 @@ const SubmitEOD = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const confirmation = window.prompt("Are you sure you want to submit?Yes/No");
+        const confirmation = window.prompt("Are you sure you want to submit, you will not be able to edit it later? Yes/No");
 
         if (!(confirmation.toUpperCase() === "YES")) return;
-
-        const { date, task } = eod;
-        const response = await fetch('http://13.126.226.857:5000/api/employee/submit-eod', {
+        const response = await fetch('http://3.110.197.187:5000/api/common/submit-eod', {
             method: 'POST',
-
             headers: {
                 'Content-Type': 'application/json',
                 'authToken': localStorage.getItem('authToken')
             },
-
-            body: JSON.stringify({ date, task })
+            body: JSON.stringify({ task })
         })
 
         const json = await response.json();
 
         if (json.success) {
-            navigate('/employee/account');
-        } else
-            alert("Invalid Entry!");
 
-        setEod({ "date": "", "task": "" });
+            navigate('/user/account');
+
+        } else if (!json.success) {
+
+            alert(json.message);
+            navigate('/user/account');
+
+
+        } else {
+
+            alert("Invalid Entry!");
+        
+        }
+
+        setTask("");
+
     }
 
     const onChange = (e) => {
-        setEod({ ...eod, [e.target.name]: e.target.value });
+        setTask(e.target.value);
     }
 
 
@@ -53,21 +62,14 @@ const SubmitEOD = () => {
                 <div className="card-body text-center">
                     <form className="form py-1 px-1" id="login-form" onSubmit={handleSubmit}>
                         <div className="row py-2 d-flex justify-content-between" id='eod-submit-form-row'>
-                            <div className='col-2 form-group'>
-                                <label htmlFor="date" className="form-label">
-                                    <strong>Date</strong>
-                                </label>
-                                <input type="date" className="form-control" id='eod-date-input' name='date' value={eod.date} onChange={onChange} required />
-                            </div>
-
-                            <div className='col-7 form-group'>
+                            <div className='col-9 form-group'>
                                 <label htmlFor="task" className="form-label">
                                     <strong>Task</strong>
                                 </label>
-                                <input type="text" className="form-control" id='eod-task-input' name='task' value={eod.task} onChange={onChange} required />
+                                <input type="text" className="form-control" id='eod-task-input' name='task' value={task} onChange={onChange} required />
                             </div>
                             <div className='col-2 form-group'>
-                                <button type="submit" className="btn btn-success" id="eod-submit-btn" style={{marginTop: '30px', width: '150px'}} >Submit</button>
+                                <button type="submit" className="btn btn-success" id="eod-submit-btn" style={{ marginTop: '30px', width: '150px' }} >Submit</button>
                             </div>
                         </div>
 

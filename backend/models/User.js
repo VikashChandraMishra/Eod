@@ -47,6 +47,11 @@ const userSchema = new Schema({
 
     reportingManager: {
         type: String,
+    },
+
+    currentSubmission: {
+        type: String,
+        default: "not done"
     }
 
 })
