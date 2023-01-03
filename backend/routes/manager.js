@@ -12,7 +12,7 @@ router.get('/approve-eod/:id', fetchUser, async (req, res) => {
 
         const userId = req.id;
         const eodId = req.params.id;
-        
+
         const existingUser = await User.findById(userId);
 
         if (!existingUser) {
@@ -31,8 +31,8 @@ router.get('/approve-eod/:id', fetchUser, async (req, res) => {
         } else if (existingUser.designation == "reporting manager") {
 
             const eod = await Report.findById(eodId);
-            
-            if(!eod) {
+
+            if (!eod) {
 
                 return res.json({
                     "success": false,
@@ -70,7 +70,7 @@ router.get('/reject-eod/:id', fetchUser, async (req, res) => {
 
         const userId = req.id;
         const eodId = req.params.id;
-        
+
         const existingUser = await User.findById(userId);
 
         if (!existingUser) {
@@ -89,8 +89,8 @@ router.get('/reject-eod/:id', fetchUser, async (req, res) => {
         } else if (existingUser.designation == "reporting manager") {
 
             const eod = await Report.findById(eodId);
-            
-            if(!eod) {
+
+            if (!eod) {
 
                 return res.json({
                     "success": false,
@@ -120,6 +120,59 @@ router.get('/reject-eod/:id', fetchUser, async (req, res) => {
 
 })
 
+
+
+router.get('/fetch-all-subordinates-submission-status', fetchUser, async (req, res) => {
+
+    try {
+        var employees = [];
+        var submitted = 0;
+        var notSubmitted = 0;
+
+        const user = await User.findById(req.id);
+
+        if (!user) {
+
+            return res.json({
+                success: false,
+                message: "user does not exist"
+            });
+
+        } else if (user.designation != "reporting manager") {
+
+            return res.json({
+                success: false,
+                message: "unauthorized action"
+            });
+
+        }
+
+        employees = await User.find({"reportingManager": user.name});
+
+        for (let i = 0; i < employees.length; i++) {
+
+            if (employees[i].currentSubmission == "done") submitted += 1;
+            else if (employees[i].currentSubmission == "not done") notSubmitted += 1;
+
+        }
+
+        const submittedPercentage = (submitted * 100) / employees.length;
+        const notSubmittedPercentage = (notSubmitted * 100) / employees.length;
+
+        return res.json({
+            success: true,
+            message: "submission data fetched",
+            data: { submittedPercentage: submittedPercentage, notSubmittedPercentage: notSubmittedPercentage }
+        });
+
+    } catch (error) {
+
+        console.log(error);
+        return res.status(500).send("Internal Server Error");
+
+    }
+
+})
 
 
 module.exports = router;

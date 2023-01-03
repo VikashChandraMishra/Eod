@@ -1,8 +1,41 @@
+import { useEffect, useMemo, useState } from "react";
 import { useSortBy, useTable } from "react-table"
 
 
 
-const List = ({ columns, data }) => {
+const EmployeeTable = ({ columns }) => {
+
+    const [employees, setEmployees] = useState([]);
+
+    useEffect(() => {
+
+        const fetchData = async () => {
+
+            const response = await fetch('http://65.2.181.99:5000/api/common/fetch-employees', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authToken': localStorage.getItem('authToken')
+                }
+            })
+
+            const json = await response.json();
+
+            if (json.success) {
+
+                setEmployees(json.employees);
+
+            } else alert("Cannot fetch employees' list at the moment!");
+        }
+
+        fetchData();
+        // eslint-disable-next-line
+    }, [])
+
+    const data = useMemo(() =>
+        employees,
+        [employees]
+    )
 
     const {
         getTableProps,
@@ -21,7 +54,7 @@ const List = ({ columns, data }) => {
 
 
     return (
-        <div className="py-4 px-4">
+        <div className="my-4 mx-4">
             <div className="my-2 row">
                 <div className="col-2 form-group">
                     <label htmlFor="begin" className="form-label">Begin Date:</label>
@@ -65,4 +98,4 @@ const List = ({ columns, data }) => {
     )
 }
 
-export default List;
+export default EmployeeTable;

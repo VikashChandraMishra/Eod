@@ -17,7 +17,7 @@ const EODPanel = () => {
 
         const fetchData = async () => {
             
-            const response = await fetch('http://3.110.197.187:5000/api/common/fetch-eods', {
+            const response = await fetch('http://65.2.181.99:5000/api/common/fetch-eods', {
                 method: 'GET',
 
                 headers: {
@@ -43,7 +43,7 @@ const EODPanel = () => {
 
     const approve = async (id) => {
 
-        const response = await fetch(`http://3.110.197.187:5000/api/manager/approve-eod/${id}`, {
+        const response = await fetch(`http://65.2.181.99:5000/api/manager/approve-eod/${id}`, {
             method: 'GET',
 
             headers: {
@@ -62,7 +62,7 @@ const EODPanel = () => {
     }
 
     const reject = async (id) => {
-        const response = await fetch(`http://3.110.197.187:5000/api/manager/reject-eod/${id}`, {
+        const response = await fetch(`http://65.2.181.99:5000/api/manager/reject-eod/${id}`, {
             method: 'GET',
 
             headers: {

@@ -15,6 +15,13 @@ router.get('/fetch-employees', fetchUser, async (req, res) => {
 
         var employees;
 
+        var employeesByBranch = [];
+        var Guwahati = [];
+        var Delhi = [];
+        var Chennai = [];
+        var Mumbai = [];
+
+
         if (req.id == ADMIN_USERNAME) {
 
             employees = await User.find();
@@ -34,11 +41,44 @@ router.get('/fetch-employees', fetchUser, async (req, res) => {
 
         }
 
+        for (let i = 0; i < employees.length; i++) {
+
+            if (employees[i].branch == "Guwahati") {
+                Guwahati.push(employees[i].empID + " " + employees[i].name);
+            } else if (employees[i].branch == "Delhi") {
+                Delhi.push(employees[i].empID + " " + employees[i].name);
+            } else if (employees[i].branch == "Chennai") {
+                Chennai.push(employees[i].empID + " " + employees[i].name);
+            } else if (employees[i].branch == "Mumbai") {
+                Mumbai.push(employees[i].empID + " " + employees[i].name);
+            }
+
+        }
+
+        let i = 0;
+
+        while (Guwahati[i] || Delhi[i] || Chennai[i] || Mumbai[i]) {
+
+            if (!Guwahati[i]) Guwahati[i] = null;
+            if (!Delhi[i]) Delhi[i] = null;
+            if (!Chennai[i]) Chennai[i] = null;
+            if (!Mumbai[i]) Mumbai[i] = null;
+
+            employeesByBranch.push({
+                "Guwahati": Guwahati[i],
+                "Delhi": Delhi[i],
+                "Chennai": Chennai[i],
+                "Mumbai": Mumbai[i]
+            });
+
+            i++;
+        }
+
 
         return res.json({
             "success": true,
             "message": "employees' list successfully fetched",
-            "employees": employees,
+            "employees": employeesByBranch,
         });
 
     } catch (error) {

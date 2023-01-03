@@ -49,6 +49,10 @@ const userSchema = new Schema({
         type: String,
     },
 
+    branch: {
+        type: String
+    },
+
     currentSubmission: {
         type: String,
         default: "not done"

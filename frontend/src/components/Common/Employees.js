@@ -9,7 +9,7 @@ const Employees = () => {
 
         const fetchData = async () => {
 
-            const response = await fetch('http://3.110.197.187:5000/api/common/fetch-employees', {
+            const response = await fetch('http://65.2.181.99:5000/api/common/fetch-employees', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

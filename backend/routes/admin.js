@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User.js');
-const Report = require('../models/Report')
+const Report = require('../models/Report');
+const fetchUser = require('../middlewares/fetchUser.js');
 
 
 router.post('/registration', async (req, res) => {
@@ -16,7 +17,8 @@ router.post('/registration', async (req, res) => {
             mobile,
             email,
             designation,
-            reportingManager
+            reportingManager,
+            branch
         } = req.body;
 
         const existingUser = await User.findOne({
@@ -40,11 +42,11 @@ router.post('/registration', async (req, res) => {
                 });
 
             else if (designation == "reporting manager" && reportingManager == 0) {
-                
+
                 reportingManager = null;
-            
+
             } else {
-                
+
                 reportingManager = await User.findOne({ "empID": reportingManager });
 
                 if (reportingManager) {
@@ -62,7 +64,7 @@ router.post('/registration', async (req, res) => {
 
                 } else return res.json({
                     "success": false,
-                    "message": "Reporting Manager with the given username does not exist"
+                    "message": "Reporting Manager with the given EMP ID does not exist"
                 });
 
             }
@@ -77,7 +79,8 @@ router.post('/registration', async (req, res) => {
                 mobile: mobile,
                 email: email,
                 designation: designation,
-                reportingManager: reportingManager
+                reportingManager: reportingManager,
+                branch: branch
             });
 
         }
@@ -116,6 +119,46 @@ router.get('/fetch-reporting-managers', async (req, res) => {
     }
 })
 
+
+
+
+router.get('/fetch-all-submission-status', fetchUser, async (req, res) => {
+
+    try {
+        var employees = [];
+        var submitted = 0;
+        var notSubmitted = 0;
+
+        if (req.id == "admin") {
+
+            employees = await User.find();
+
+            for (let i = 0; i < employees.length; i++) {
+
+                if (employees[i].currentSubmission == "done") submitted += 1;
+                else if (employees[i].currentSubmission == "not done") notSubmitted += 1;
+
+            }
+
+        }
+
+        const submittedPercentage = (submitted * 100) / employees.length;
+        const notSubmittedPercentage = (notSubmitted * 100) / employees.length;
+
+        return res.json({
+            success: true,
+            message: "submission data fetched",
+            data: { submittedPercentage: submittedPercentage, notSubmittedPercentage: notSubmittedPercentage }
+        });
+
+    } catch (error) {
+
+        console.log(error);
+        return res.status(500).send("Internal Server Error");
+
+    }
+
+})
 
 
 module.exports = router;
