@@ -16,7 +16,7 @@ const Account = () => {
             navigate('/');
 
         const fetchData = async () => {
-            const response = await fetch('http://65.2.181.99:5000/api/common/get-user-eods', {
+            const response = await fetch('http://65.1.192.183:5000/api/common/get-user-eods', {
                 method: 'GET',
 
                 headers: {

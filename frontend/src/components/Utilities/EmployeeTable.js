@@ -11,7 +11,7 @@ const EmployeeTable = ({ columns }) => {
 
         const fetchData = async () => {
 
-            const response = await fetch('http://65.2.181.99:5000/api/common/fetch-employees', {
+            const response = await fetch('http://65.1.192.183:5000/api/common/fetch-employees', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

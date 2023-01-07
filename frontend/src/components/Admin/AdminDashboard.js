@@ -32,7 +32,7 @@ const Dashboard = () => {
 
         const fetchData = async () => {
 
-            const response = await fetch('http://65.2.181.99:5000/api/admin/fetch-all-submission-status', {
+            const response = await fetch('http://65.1.192.183:5000/api/admin/fetch-all-submission-status', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

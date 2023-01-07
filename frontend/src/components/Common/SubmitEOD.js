@@ -19,7 +19,7 @@ const SubmitEOD = () => {
         const confirmation = window.prompt("Are you sure you want to submit, you will not be able to edit it later? Yes/No");
 
         if (!(confirmation.toUpperCase() === "YES")) return;
-        const response = await fetch('http://65.2.181.99:5000/api/common/submit-eod', {
+        const response = await fetch('http://65.1.192.183:5000/api/common/submit-eod', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
